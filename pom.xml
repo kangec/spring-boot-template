@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.kangec</groupId>
-    <artifactId>vcms</artifactId>
+    <artifactId>spring-boot-template</artifactId>
     <version>0.0.1</version>
     <name>vcms</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Spring Boot Template</description>
 
     <properties>
         <java.version>11</java.version>

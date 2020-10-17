@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kangec.vcms.mapper.SysOperatorLogMapper">
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.kangec.vcms.utils.logging.LogDO">
+        insert into sys_operate_log(user_id, username, create_date, runTime, logType, log_function, log_focus,
+                                    log_summary, returnValue, log_args_record)
+        VALUES (#{userId}, #{username}, #{createDate}, #{runTime}, #{logType}, #{logFunction}, #{logFocus},
+                #{logSummary},#{returnValue},#{logArgsFocus});
+    </insert>
+</mapper>
