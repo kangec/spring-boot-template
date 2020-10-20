@@ -1,5 +1,9 @@
 package com.kangec.vcms.utils.logging.annotation;
 
+/**
+ * @author kangec
+ */
+
 public enum LogType {
     UNKNOWN("unknown"),
     DELETE("delete"),

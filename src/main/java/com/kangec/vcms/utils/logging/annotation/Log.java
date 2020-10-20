@@ -3,6 +3,9 @@ package com.kangec.vcms.utils.logging.annotation;
 import org.springframework.boot.logging.LogLevel;
 import java.lang.annotation.*;
 
+/**
+ * @author kangec
+ */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

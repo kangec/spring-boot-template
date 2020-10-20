@@ -10,6 +10,9 @@ import org.springframework.boot.logging.LogLevel;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * @author kangec
+ */
 @AllArgsConstructor
 @Data
 @NoArgsConstructor

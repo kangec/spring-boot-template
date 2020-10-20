@@ -6,6 +6,9 @@ import com.kangec.vcms.utils.logging.LogDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author kangec
+ */
 @Service
 public class SysOperatorLogServiceImpl implements SysOperatorLogService {
 
