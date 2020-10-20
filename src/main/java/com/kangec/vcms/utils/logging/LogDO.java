@@ -16,14 +16,48 @@ import java.time.LocalDateTime;
 @Builder
 public class LogDO implements Serializable {
     private String id;
-    private String userId;      //用户id
-    private String username;    // 用户名
-    private String runTime;     // 运行时间
-    private LogLevel logFocus;    // 日志主诉
-    private LogType logType;    // 类型
-    private String logFunction; // 方法
-    private String logArgsFocus;     // 参数
-    private String logSummary;  //  简述
-    private String returnValue; //  返回值
-    private LocalDateTime createDate; //   时间
+    /**
+     * 用户id
+     */
+    private String userId;
+
+    /**
+     *  用户名
+     */
+    private String username;
+    /**
+     * 运行时间
+     */
+    private String runTime;
+
+    /**
+     * 日志主诉
+     */
+    private LogLevel logFocus;
+    /**
+     * 类型
+     */
+    private LogType logType;
+    /**
+     *  方法
+     */
+    private String logFunction;
+
+    /**
+     * 参数
+     */
+    private String logArgsFocus;
+
+    /**
+     *  简述
+     */
+    private String logSummary;
+    /**
+     * 返回值
+     */
+    private String returnValue;
+    /**
+     * 时间
+     */
+    private LocalDateTime createDate;
 }
