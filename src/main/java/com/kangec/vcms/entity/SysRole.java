@@ -3,6 +3,7 @@ package com.kangec.vcms.entity;
 import lombok.Data;
 
 /**
+ * 角色
  * @Author Ardien
  * @Date 10/8/2020 3:31 PM
  * @Email ardien@126.com
