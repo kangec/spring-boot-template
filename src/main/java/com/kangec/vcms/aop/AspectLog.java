@@ -27,6 +27,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * @author PC
+ */
 @Aspect
 @Component
 public class AspectLog {
@@ -49,10 +52,9 @@ public class AspectLog {
      * 记录方法开始运行的时间
      * 创建时间
      * 统计性能
-     * @param joinPoint 连接点
      */
     @Before("log()")
-    public void doBefore(JoinPoint joinPoint) {
+    public void doBefore() {
         Long start = System.currentTimeMillis();
         startTime.set(start);
         localDateTime.set(LocalDateTime.now());
@@ -63,6 +65,8 @@ public class AspectLog {
     public void doAfterReturning(JoinPoint joinPoint) {
         Long end = System.currentTimeMillis();
         asyncDoLog(joinPoint, end - startTime.get(), localDateTime.get());
+        localDateTime.remove();
+        startTime.remove();
     }
 
     private void asyncDoLog(JoinPoint joinPoint,Long runTime, LocalDateTime localDateTime) {
@@ -96,10 +100,17 @@ public class AspectLog {
         return ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
     }
 
-    // 获取属性名称
+    /**
+     * 获取属性名称
+     *
+     * @param joinPoint JoinPoint
+     * @return 属性名称
+     */
     public Map<String, Object> getFieldsName(JoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
-        if (args == null || args.length == 0) return null;
+        if (args == null || args.length == 0) {
+            return null;
+        }
         for (Object arg : args) {
             if (arg instanceof MultipartFile || arg instanceof ServletRequest || arg instanceof ServletResponse) {
                 return null;
