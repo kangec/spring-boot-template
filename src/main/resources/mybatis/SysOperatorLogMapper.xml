@@ -9,4 +9,8 @@
         VALUES (#{userId}, #{username}, #{createDate}, #{runTime}, #{logType}, #{logFunction}, #{logFocus},
                 #{logSummary},#{returnValue},#{logArgsFocus});
     </insert>
+    
+    <select id="queryByUsername" parameterType="com.kangec.vcms.utils.logging.LogDO">
+        select * from sys_operate_log where username = #{username}
+    </select>
 </mapper>

@@ -4,6 +4,8 @@ import com.kangec.vcms.utils.logging.LogDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * @author kangec
  */
@@ -15,4 +17,11 @@ public interface SysOperatorLogMapper {
      * @param log Log Bean
      */
     void insert(LogDO log);
+
+    /**
+     * 查询某用户的操作日志
+     * @param username 用户名
+     * @return List<LogDO>
+     */
+    List<LogDO> queryByUsername(String username);
 }
