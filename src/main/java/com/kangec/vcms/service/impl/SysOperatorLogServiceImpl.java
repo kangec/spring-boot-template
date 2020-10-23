@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author kangec
  */
-@Service
+@Service("sysOperatorLogService")
 public class SysOperatorLogServiceImpl implements SysOperatorLogService {
 
 
