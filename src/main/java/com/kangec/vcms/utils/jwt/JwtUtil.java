@@ -14,8 +14,8 @@ import java.util.Map;
  * @author kangec
  */
 public class JwtUtil {
-    private static final String SECRET = "KANGEC_ENCODE_DECODE";
-    private static final Long EXPIRE_DATE = 3600_000_000L;
+    public static final String SECRET = "KANGEC_ENCODE_DECODE";
+    public static final Long EXPIRE_DATE = 3600_000_000L;
 
     /**
      * 生成Token

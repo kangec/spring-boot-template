@@ -21,13 +21,11 @@ import java.util.List;
 /**
  * @Author Ardien
  * @Date 10/15/2020 4:36 PM
- * @Email ardien@126.com
- * @Version 1.0
  **/
 
 @Service
 @Slf4j
-public class VcmsUserDetailsService implements UserDetailsService {
+public class VcmsUserDetailsServiceImpl implements UserDetailsService {
     private AuthorityService authorityService;
 
     @Override
@@ -37,8 +35,9 @@ public class VcmsUserDetailsService implements UserDetailsService {
 
         // 获取用户信息
         SysUser sysUser = authorityService.getSysUserInformation(username);
-        if (sysUser == null)
+        if (sysUser == null) {
             throw new UsernameNotFoundException("用户名不存在");
+        }
 
         //获取用户的角色信息，并构建角色列表
         List<SysUserRole> userRoleList = authorityService.getSysUserRoleList(sysUser.getId());

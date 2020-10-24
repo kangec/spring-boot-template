@@ -1,6 +1,6 @@
 package com.kangec.vcms.config;
 
-import com.kangec.vcms.service.impl.VcmsUserDetailsService;
+import com.kangec.vcms.service.impl.VcmsUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class VcmsSecurity extends WebSecurityConfigurerAdapter {
 
-    private VcmsUserDetailsService vcmsUserDetailsService;
+    private VcmsUserDetailsServiceImpl vcmsUserDetailsService;
 
     /*
     @Override
@@ -57,7 +57,7 @@ public class VcmsSecurity extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void setVcmsUserDetailsService(VcmsUserDetailsService vcmsUserDetailsService) {
-        this.vcmsUserDetailsService = vcmsUserDetailsService;
+    public void setVcmsUserDetailsService(VcmsUserDetailsServiceImpl vcmsUserDetailsServiceImpl) {
+        this.vcmsUserDetailsService = vcmsUserDetailsServiceImpl;
     }
 }
