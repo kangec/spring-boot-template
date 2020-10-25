@@ -1,5 +1,6 @@
 package com.kangec.vcms.config.auth;
 
+import com.kangec.vcms.utils.jwt.JwtUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -24,7 +25,7 @@ public class VcmsTokenStore {
     @Bean
     public JwtAccessTokenConverter getJwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey("key_converter");
+        converter.setSigningKey(JwtUtil.SECRET_KAY);
         return converter;
     }
 

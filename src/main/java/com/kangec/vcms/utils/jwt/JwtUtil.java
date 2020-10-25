@@ -3,6 +3,7 @@ package com.kangec.vcms.utils.jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
  * @author kangec
  */
 public class JwtUtil {
-    public static final String SECRET = "KANGEC_ENCODE_DECODE";
+    public static final String SECRET_KAY = "KANGEC_ENCODE_DECODE";
     public static final Long EXPIRE_DATE = 3600_000_000L;
 
     /**
@@ -28,7 +29,7 @@ public class JwtUtil {
 
         String token = Jwts.builder().setClaims(userData)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DATE))
-                .signWith(SignatureAlgorithm.HS256, SECRET)
+                .signWith(SignatureAlgorithm.HS256, SECRET_KAY)
                 .compact();
 
         return "Bearer" + token;
@@ -39,12 +40,13 @@ public class JwtUtil {
      *
      * @param token the token
      */
-    public static void validateToken(String token) {
+    public static Object validateToken(String token) {
         try {
             Map<String, Object> body = Jwts.parser()
-                    .setSigningKey(SECRET)
-                    .parseClaimsJws(token.replace("Bearer", ""))
+                    .setSigningKey(SECRET_KAY.getBytes(StandardCharsets.UTF_8))
+                    .parseClaimsJws(token.replace("bearer ", ""))
                     .getBody();
+            return body;
         } catch (Exception e) {
             throw new IllegalStateException("Invalid Token.");
         }
