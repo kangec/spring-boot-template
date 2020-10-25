@@ -26,7 +26,6 @@ public class VcmsSecurity extends WebSecurityConfigurerAdapter {
     private VcmsUserDetailsServiceImpl vcmsUserDetailsService;
     private PersistentTokenRepository persistentTokenRepository;
 
-
     @Autowired
     public DataSource dataSource;
 
