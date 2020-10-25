@@ -2,15 +2,21 @@ package com.kangec.vcms.config;
 
 import com.kangec.vcms.service.impl.VcmsUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +25,28 @@ public class VcmsSecurity extends WebSecurityConfigurerAdapter {
 
     private VcmsUserDetailsServiceImpl vcmsUserDetailsService;
     private PersistentTokenRepository persistentTokenRepository;
+
+
+    @Autowired
+    public DataSource dataSource;
+
+    @Bean
+    public BCryptPasswordEncoder getBCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public PersistentTokenRepository getPersistentTokenRepository() {
+        JdbcTokenRepositoryImpl repository = new JdbcTokenRepositoryImpl();
+        repository.setDataSource(dataSource);
+        // repository.setCreateTableOnStartup(true);
+        return repository;
+    }
+
+    @Bean
+    public AuthenticationManager getAuthenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
 
     /*
     @Override
@@ -44,7 +72,10 @@ public class VcmsSecurity extends WebSecurityConfigurerAdapter {
 
         // 开启表单登陆
         http.formLogin().and()
-                .authorizeRequests().anyRequest().authenticated();
+                .authorizeRequests()
+                .antMatchers("/oauth/**","/login/**","/logout/**")
+                .permitAll()
+                .anyRequest().authenticated();
 
         // 开启记住密码
         http.rememberMe()
