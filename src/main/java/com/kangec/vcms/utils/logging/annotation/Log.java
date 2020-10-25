@@ -19,7 +19,7 @@ public @interface Log {
     /**
      * 日志详细信息
      */
-    String detail() default "";
+    String detail() default " ";
 
     LogType type() default LogType.UNKNOWN;
 }

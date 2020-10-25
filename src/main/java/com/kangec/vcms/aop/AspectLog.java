@@ -88,7 +88,7 @@ public class AspectLog {
                     .logFocus(annotation.level())
                     .logType(annotation.type())
                     .logSummary(annotation.detail())
-                    .logArgsFocus(fieldsName.toString())
+                    .logArgsFocus(fieldsName == null ? "Null" : fieldsName.toString())
                     .returnValue(type.getName())
                     .build();
             sysOperatorLogService.addLogRecord(log);
