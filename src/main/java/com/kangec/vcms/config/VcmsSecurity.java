@@ -1,6 +1,5 @@
 package com.kangec.vcms.config;
 
-import com.kangec.vcms.config.auth.VcmsUsernamePasswordAuthenticationFilter;
 import com.kangec.vcms.service.impl.VcmsUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,13 +32,6 @@ public class VcmsSecurity extends WebSecurityConfigurerAdapter {
     @Bean
     public BCryptPasswordEncoder getBCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public VcmsUsernamePasswordAuthenticationFilter vcmsUsernamePasswordAuthenticationFilter() {
-
-
-        return null;
     }
 
     @Bean
