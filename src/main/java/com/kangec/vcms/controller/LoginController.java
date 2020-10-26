@@ -1,10 +1,14 @@
 package com.kangec.vcms.controller;
 
+import com.kangec.vcms.controller.vo.VoUser;
+import com.kangec.vcms.entity.ResultResponse;
 import com.kangec.vcms.utils.logging.annotation.Log;
 import com.kangec.vcms.utils.logging.annotation.LogType;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -22,5 +26,10 @@ public class LoginController {
     @Log(detail = "测试", level = LogLevel.INFO, type = LogType.SELECT)
     public void hello(HttpSession session) {
 
+    }
+
+    @PostMapping("/admin/login")
+    public ResultResponse<String> login(@RequestBody VoUser user) {
+        return null;
     }
 }

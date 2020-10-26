@@ -6,7 +6,6 @@ import com.kangec.vcms.entity.SysUserRole;
 import com.kangec.vcms.service.AuthorityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -23,7 +22,7 @@ import java.util.List;
  * @Date 10/15/2020 4:36 PM
  **/
 
-@Service
+@Service("vcmsUserDetailsServiceImpl")
 @Slf4j
 public class VcmsUserDetailsServiceImpl implements UserDetailsService {
     private AuthorityService authorityService;
