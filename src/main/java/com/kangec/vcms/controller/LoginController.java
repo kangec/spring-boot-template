@@ -29,7 +29,7 @@ public class LoginController {
     }
 
     @PostMapping("/admin/login")
-    public ResultResponse<String> login(@RequestBody VoUser user) {
+    public ResultResponse login(@RequestBody VoUser user) {
         return null;
     }
 }
