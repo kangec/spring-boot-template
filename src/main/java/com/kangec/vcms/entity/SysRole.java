@@ -1,6 +1,8 @@
 package com.kangec.vcms.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 角色
@@ -11,6 +13,8 @@ import lombok.Data;
  **/
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class SysRole {
     private Integer id;
     private String name;
