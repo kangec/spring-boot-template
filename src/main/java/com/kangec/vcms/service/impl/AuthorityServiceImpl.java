@@ -28,7 +28,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 
     @Override
     public SysUser getSysUserInformation(String username) {
-        return sysUserMapper.queryAdminByUsername(username);
+        return sysUserMapper.queryUserByUsername(username);
     }
 
     @Override

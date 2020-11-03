@@ -14,9 +14,41 @@ import org.springframework.stereotype.Component;
 @Component
 @Mapper
 public interface SysUserMapper {
-    @Select("select * from sys_user where name = #{username}")
-    SysUser queryAdminByUsername(String username);
 
-    @Select("select * from sys_user where id = #{id}")
-    SysUser queryAdminById(String id);
+    /**
+     * 查询用户
+     *
+     * @param username The username
+     * @return The User Entity
+     */
+    SysUser queryUserByUsername(String username);
+
+    /**
+     * 查询用户
+     * @param id the User id
+     * @return SysUser
+     */
+    SysUser queryUserById(String id);
+
+    /**
+     * 添加用户
+     * @param sysUser 待添加的用户
+     * @return 添加成功后所返回的用户
+     */
+    long insertUser(SysUser sysUser);
+
+    /**
+     * 更新用户信息
+     * @param sysUser 待更新的用户
+     * @return 受影响的行数
+     */
+    Integer updateUser(SysUser sysUser);
+
+    /**
+     * 清除用户
+     *
+     * @param userId 待删除的用户id
+     * @return 受影响的行数
+     */
+    Integer deleteUser(String userId);
 }
