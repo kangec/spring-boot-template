@@ -2,7 +2,7 @@ allowed:
   cors: http://localhost:9527
 
 server:
-  port: 8070
+  port: 8080
 spring:
   application:
     name: VCMS

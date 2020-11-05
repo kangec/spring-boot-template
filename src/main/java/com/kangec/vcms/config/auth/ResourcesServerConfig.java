@@ -1,4 +1,4 @@
-package com.kangec.vcms.config;
+package com.kangec.vcms.config.auth;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

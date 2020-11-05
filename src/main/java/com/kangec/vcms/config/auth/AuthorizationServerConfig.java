@@ -1,6 +1,5 @@
-package com.kangec.vcms.config;
+package com.kangec.vcms.config.auth;
 
-import com.kangec.vcms.config.auth.JwtTokenEnhancer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;

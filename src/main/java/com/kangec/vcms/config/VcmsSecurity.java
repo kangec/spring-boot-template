@@ -72,7 +72,7 @@ public class VcmsSecurity extends WebSecurityConfigurerAdapter {
         // 开启表单登陆
         http.formLogin().and()
                 .authorizeRequests()
-                .antMatchers("/oauth/**","/login/**","/logout/**")
+                .antMatchers("/oauth/**","/login/**","/logout/**","/api/**")
                 .permitAll()
                 .anyRequest().authenticated();
 
