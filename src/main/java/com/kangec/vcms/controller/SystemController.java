@@ -25,6 +25,9 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @RequestMapping("/api/system")
 public class SystemController {
+    @Autowired
+    private SystemService systemService;
+
     static Map<String, Object> data = new HashMap<>();
 
     static {
@@ -34,9 +37,6 @@ public class SystemController {
         }
         data.put("roles",roles);
     }
-
-    @Autowired
-    private SystemService systemService;
 
     @PostMapping("/login")
     public ResultResponse login(@RequestBody VoUser user) {
@@ -48,8 +48,8 @@ public class SystemController {
         return ResultResponse.fail(null);
     }
     @PostMapping("/logout")
-    public void logout() {
-
+    public ResultResponse logout() {
+        return ResultResponse.ok(null);
     }
 
     @GetMapping("/roles")
