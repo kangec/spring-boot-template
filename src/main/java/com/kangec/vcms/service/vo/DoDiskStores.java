@@ -1,4 +1,4 @@
-package com.kangec.vcms.service;
+package com.kangec.vcms.service.vo;
 
 import lombok.Data;
 import oshi.hardware.HWDiskStore;
@@ -20,8 +20,7 @@ public class DoDiskStores {
     private String free;
     private String usage;
 
-    public DoDiskStores(List<HWDiskStore> diskStores) {
-        HWDiskStore store = diskStores.get(0);
+    public DoDiskStores(HWDiskStore store) {
         if (store != null) {
             try {
                 this.dirName = store.getPartitions().get(0).getMountPoint();
@@ -38,8 +37,17 @@ public class DoDiskStores {
                 this.total = String.format("%.2f", total);
                 this.used = String.format("%.2f", used);
                 this.free = String.format("%.2f", free);
-                this.usage = String.format("%.2f", usage);
+                this.usage = String.format("%.2f", usage * 100);
             }
         }
+    }
+
+    public static DoDiskStores[] get(List<HWDiskStore> diskStores) {
+        int size = diskStores.size();
+        DoDiskStores[] doDiskStores = new DoDiskStores[size];
+        for (int i = 0; i < size; i++) {
+            doDiskStores[i] = new DoDiskStores(diskStores.get(i));
+        }
+        return doDiskStores;
     }
 }

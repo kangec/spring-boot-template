@@ -1,4 +1,4 @@
-package com.kangec.vcms.service;
+package com.kangec.vcms.service.vo;
 
 import lombok.Data;
 import oshi.hardware.GlobalMemory;

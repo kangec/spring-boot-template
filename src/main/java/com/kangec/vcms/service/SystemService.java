@@ -1,6 +1,7 @@
 package com.kangec.vcms.service;
 
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @Author kangec 11/6/2020 2:20 PM
@@ -12,5 +13,5 @@ public interface SystemService {
      * 获取应用运行环境的参数
      * @return 参数
      */
-    public Map<String, Object> getSystemRuntimeEvn();
+    public Map<String, Object> getSystemRuntimeEvn() throws ExecutionException, InterruptedException;
 }

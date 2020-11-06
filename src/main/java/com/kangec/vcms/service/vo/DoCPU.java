@@ -1,4 +1,4 @@
-package com.kangec.vcms.service;
+package com.kangec.vcms.service.vo;
 
 import lombok.Data;
 import oshi.hardware.CentralProcessor;
@@ -15,10 +15,10 @@ public class DoCPU {
     private String name;
     private Double free;
 
-    public DoCPU(CentralProcessor centralProcessor) {
+    public DoCPU(CentralProcessor centralProcessor, double systemLoadAverage) {
         this.logicalProcessorCount = centralProcessor.getLogicalProcessorCount();
         this.physicalProcessorCount = centralProcessor.getPhysicalProcessorCount();
         this.name = centralProcessor.getProcessorIdentifier().getName();
-        this.free = 20.00D;
+        this.free = systemLoadAverage;
     }
 }

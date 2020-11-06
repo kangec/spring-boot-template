@@ -3,8 +3,10 @@ package com.kangec.vcms.controller;
 import com.kangec.vcms.controller.vo.VoRole;
 import com.kangec.vcms.controller.vo.VoUser;
 import com.kangec.vcms.entity.ResultResponse;
+import com.kangec.vcms.service.SystemService;
 import com.kangec.vcms.utils.logging.annotation.Log;
 import com.kangec.vcms.utils.logging.annotation.LogType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * 系统资源控制器
@@ -31,6 +34,9 @@ public class SystemController {
         }
         data.put("roles",roles);
     }
+
+    @Autowired
+    private SystemService systemService;
 
     @PostMapping("/login")
     public ResultResponse login(@RequestBody VoUser user) {
@@ -71,5 +77,16 @@ public class SystemController {
     public ResultResponse updateRole(@RequestBody VoRole voRole) {
         List<VoRole> roles = (List<VoRole>) data.get("roles");
         return ResultResponse.ok(null);
+    }
+
+    @GetMapping("/evn")
+    public ResultResponse getSystemInfatuation() {
+        Map<String, Object> runtimeEvn = null;
+        try {
+            runtimeEvn = systemService.getSystemRuntimeEvn();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return ResultResponse.ok(runtimeEvn);
     }
 }
