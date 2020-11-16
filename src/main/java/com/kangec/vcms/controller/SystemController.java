@@ -38,6 +38,11 @@ public class SystemController {
         data.put("roles",roles);
     }
 
+    /**
+     * 登录请求处理接口
+     * @param user User DTO，只包含用户名和密码。
+     * @return 结果
+     */
     @PostMapping("/login")
     public ResultResponse login(@RequestBody VoUser user) {
         Map<String, String> data = new HashMap<>();
@@ -47,16 +52,30 @@ public class SystemController {
         }
         return ResultResponse.fail(null);
     }
+
+    /**
+     * 登出处理接口
+     * @return 结果
+     */
     @PostMapping("/logout")
     public ResultResponse logout() {
         return ResultResponse.ok(null);
     }
 
+    /**
+     * 请求查询角色列表处理接口
+     * @return 角色列表
+     */
     @GetMapping("/roles")
     public ResultResponse roleList() {
         return ResultResponse.ok(data);
     }
 
+    /**
+     * 请求删除角色接口
+     * @param roleId 角色Id
+     * @return 结果
+     */
     @Log(detail = "", type = LogType.DELETE)
     @DeleteMapping("/roles/{roleId}")
     public ResultResponse deleteRole(@PathVariable String roleId) {
@@ -73,12 +92,21 @@ public class SystemController {
         return ResultResponse.ok(null);
     }
 
+    /**
+     * 请求更新角色信息接口
+     * @param voRole Role DTO
+     * @return 结果
+     */
     @PatchMapping("/roles")
     public ResultResponse updateRole(@RequestBody VoRole voRole) {
         List<VoRole> roles = (List<VoRole>) data.get("roles");
         return ResultResponse.ok(null);
     }
 
+    /**
+     * 请求查询系统信信息、运行环境、JVM信息、内存信息等
+     * @return 信息集合
+     */
     @GetMapping("/evn")
     public ResultResponse getSystemInfatuation() {
         Map<String, Object> runtimeEvn = null;

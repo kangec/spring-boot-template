@@ -45,7 +45,7 @@ public class VcmsUserDetailsServiceImpl implements UserDetailsService {
             authList.add(new SimpleGrantedAuthority(sysRole.getName()));
         });
 
-        return new User(sysUser.getName(), sysUser.getPassword(), authList);
+        return new User(sysUser.getUsername(), sysUser.getPassword(), authList);
     }
 
 

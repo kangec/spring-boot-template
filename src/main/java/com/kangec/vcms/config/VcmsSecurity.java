@@ -1,9 +1,12 @@
 package com.kangec.vcms.config;
 
+import com.kangec.vcms.config.filter.JwtFilter;
+import com.kangec.vcms.config.filter.JwtLoginFilter;
 import com.kangec.vcms.service.impl.VcmsUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -13,11 +16,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import javax.sql.DataSource;
 
+/**
+ * @author PC
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
@@ -47,34 +54,17 @@ public class VcmsSecurity extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
-    /*
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        // 1.解决跨域问题。放行CORS预检
-        http.authorizeRequests().requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
-
-        // 2.禁止Security创建HttpSession(Security会通过HttpSession获取SecurityContext)
-        http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().headers().cacheControl();
-
-        // 3.uri请求权限配置
-        http.authorizeRequests()
-                // 1) 放行注册请求
-                .antMatchers(HttpMethod.POST, "/user/register").permitAll();
-
-        // 4.拦截账号密码
-    }
-    */
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         // 开启表单登陆
-        http.formLogin().and()
-                .authorizeRequests()
-                .antMatchers("/oauth/**","/login/**","/logout/**","/api/**")
-                .permitAll()
-                .anyRequest().authenticated();
+        http.authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .addFilterBefore(new JwtLoginFilter("/login",authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtFilter(),UsernamePasswordAuthenticationFilter.class)
+                .csrf().disable();
 
         // 开启记住密码
         http.rememberMe()

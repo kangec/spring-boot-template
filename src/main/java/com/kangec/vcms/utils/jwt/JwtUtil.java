@@ -1,12 +1,11 @@
 package com.kangec.vcms.utils.jwt;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Token 生成和校验工具
@@ -23,16 +22,16 @@ public class JwtUtil {
      * @param username 当前登录用户
      * @return token
      */
-    public static String generateToken(String username, String role) {
-        Map<String, Object> userData = new HashMap<>(8);
-        userData.put("username", username);
+    public static String generateToken(String username, String roles) {
 
-        String token = Jwts.builder().setClaims(userData)
+        String token = Jwts.builder()
+                .setSubject(username)
+                .claim("authorities", roles)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DATE))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KAY)
+                .signWith(SignatureAlgorithm.HS256, SECRET_KAY.getBytes(StandardCharsets.UTF_8))
                 .compact();
 
-        return "Bearer" + token;
+        return "Bearer " + token;
     }
 
     /**
@@ -40,13 +39,12 @@ public class JwtUtil {
      *
      * @param token the token
      */
-    public static Object validateToken(String token) {
+    public static Claims validateToken(String token) {
         try {
-            Map<String, Object> body = Jwts.parser()
+            return Jwts.parser()
                     .setSigningKey(SECRET_KAY.getBytes(StandardCharsets.UTF_8))
-                    .parseClaimsJws(token.replace("bearer ", ""))
+                    .parseClaimsJws(token.replace("Bearer ", ""))
                     .getBody();
-            return body;
         } catch (Exception e) {
             throw new IllegalStateException("Invalid Token.");
         }

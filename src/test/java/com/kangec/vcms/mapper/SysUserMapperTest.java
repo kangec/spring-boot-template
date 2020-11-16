@@ -22,13 +22,13 @@ public class SysUserMapperTest {
     }
 
     public void queryUser(SysUser sysUser) {
-        final SysUser user = sysUserMapper.queryUserByUsername(sysUser.getName());
+        final SysUser user = sysUserMapper.queryUserByUsername(sysUser.getUsername());
         final SysUser userById = sysUserMapper.queryUserById(String.valueOf(sysUser.getId()));
         Assertions.assertEquals(user, userById);
     }
 
     public SysUser insertUser() {
-        final SysUser sysUser = new SysUser(null, "test", "test");
+        final SysUser sysUser = new SysUser(null, "test", "test",null,null,null,null,null);
         sysUserMapper.insertUser(sysUser);
         Assertions.assertNotNull(sysUser);
         return sysUser;

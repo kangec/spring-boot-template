@@ -1,8 +1,9 @@
 package com.kangec.vcms.mapper;
 import com.kangec.vcms.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @Author Ardien
@@ -51,4 +52,10 @@ public interface SysUserMapper {
      * @return 受影响的行数
      */
     Integer deleteUser(String userId);
+
+    /**
+     * 查询所有用户
+     * @return 列表
+     */
+    List<SysUser> queryUserList();
 }

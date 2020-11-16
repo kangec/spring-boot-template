@@ -6,7 +6,11 @@
     <select id="queryUserByUsername" parameterType="string" resultType="SysUser">
         select *
         from sys_user
-        where name = #{username}
+        where username = #{username}
+    </select>
+
+    <select id="queryUserList" resultType="SysUser">
+        select * from sys_user;
     </select>
 
     <select id="queryUserById" parameterType="string" resultType="SysUser">
@@ -16,15 +20,15 @@
     </select>
 
     <insert id="insertUser" parameterType="SysUser"  useGeneratedKeys="true" keyProperty="id">
-        insert into sys_user(name, password)
+        insert into sys_user(username, password)
         VALUES (#{name}, #{password})
     </insert>
 
     <update id="updateUser" parameterType="SysUser">
         update sys_user
         <set>
-            <if test="name != null">
-                name = #{name},
+            <if test="username != null">
+                username = #{username},
             </if>
             <if test="password != null">
                 password = #{password}

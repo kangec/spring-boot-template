@@ -29,6 +29,7 @@ public class LoginController {
     }
 
     @PostMapping("/admin/login")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     public ResultResponse login(@RequestBody VoUser user) {
         return null;
     }
