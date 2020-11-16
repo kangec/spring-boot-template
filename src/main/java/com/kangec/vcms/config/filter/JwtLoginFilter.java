@@ -1,7 +1,7 @@
 package com.kangec.vcms.config.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kangec.vcms.controller.vo.VoUser;
+import com.kangec.vcms.entity.SysUser;
 import com.kangec.vcms.utils.jwt.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,49 +19,34 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 
-/**
- * 拦截登录请求中的账号密码进行校验，校验成功发布Token
- *
- * @Author kangec 11/5/2020 5:14 PM
- * @Email ardien@126.com
- **/
+
 public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
-
-    public JwtLoginFilter(String defaultFilterProcessesUrl, AuthenticationManager manager) {
+    public JwtLoginFilter(String defaultFilterProcessesUrl, AuthenticationManager authenticationManager) {
         super(new AntPathRequestMatcher(defaultFilterProcessesUrl));
-        setAuthenticationManager(manager);
+        setAuthenticationManager(authenticationManager);
     }
-
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest httpServletRequest
-                                                , HttpServletResponse httpServletResponse)
-                                                        throws AuthenticationException, IOException, ServletException {
-        VoUser user = new ObjectMapper().readValue(httpServletRequest.getInputStream(), VoUser.class);
+    public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse resp) throws AuthenticationException, IOException, ServletException, IOException {
+        SysUser user = new ObjectMapper().readValue(req.getInputStream(), SysUser.class);
         return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
     }
-
     @Override
-    protected void successfulAuthentication(HttpServletRequest req
-                                            , HttpServletResponse resp
-                                            , FilterChain chain
-                                            , Authentication authResult) throws IOException, ServletException {
+    protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse resp, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         Collection<? extends GrantedAuthority> authorities = authResult.getAuthorities();
         StringBuffer as = new StringBuffer();
         for (GrantedAuthority authority : authorities) {
             as.append(authority.getAuthority())
                     .append(",");
         }
-
         String token = JwtUtil.generateToken(authResult.getName(), as.toString());
+
         resp.setContentType("application/json;charset=utf-8");
         PrintWriter out = resp.getWriter();
         out.write(new ObjectMapper().writeValueAsString(token));
         out.flush();
         out.close();
     }
-    protected void unsuccessfulAuthentication(HttpServletRequest req
-                                            , HttpServletResponse resp
-                                            , AuthenticationException failed) throws IOException, ServletException {
+    protected void unsuccessfulAuthentication(HttpServletRequest req, HttpServletResponse resp, AuthenticationException failed) throws IOException, ServletException {
         resp.setContentType("application/json;charset=utf-8");
         PrintWriter out = resp.getWriter();
         out.write("登录失败!");
