@@ -42,16 +42,13 @@ public class UserController {
     }
 
     @GetMapping("/user/info")
-    public ResultResponse userInfo(String token) {
+    public ResultResponse userInfo() {
         Map<String, String> data = new HashMap<>();
-        if ("admin-token".equals(token)) {
-            data.put("role", "admin");
-            data.put("introduction", "I am a super administrator");
-            data.put("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
-            data.put("name", "Super Admin");
-            return ResultResponse.ok(data);
-        }
-        return ResultResponse.fail(null);
+        data.put("role", "admin");
+        data.put("introduction", "I am a super administrator");
+        data.put("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+        data.put("name", "Super Admin");
+        return ResultResponse.ok(data);
     }
 
     @GetMapping("/user")

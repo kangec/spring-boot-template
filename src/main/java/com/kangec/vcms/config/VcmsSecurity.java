@@ -59,10 +59,10 @@ public class VcmsSecurity extends WebSecurityConfigurerAdapter {
 
         // 开启表单登陆
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/system/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(new JwtLoginFilter("/login",authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtLoginFilter("/api/system/login",authenticationManager()), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtFilter(),UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable();
 
