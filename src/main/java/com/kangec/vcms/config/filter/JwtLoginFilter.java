@@ -3,6 +3,7 @@ package com.kangec.vcms.config.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kangec.vcms.entity.ResultResponse;
 import com.kangec.vcms.entity.SysUser;
+import com.kangec.vcms.utils.Constants;
 import com.kangec.vcms.utils.jwt.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -47,7 +48,7 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
         PrintWriter out = resp.getWriter();
         Map<String, String> data = new HashMap<>();
         data.put("token", token);
-        ResultResponse response = ResultResponse.ok(data);
+        ResultResponse response = ResultResponse.login(Constants.STATUS_OK,"登录成功！",data);
         out.write(new ObjectMapper().writeValueAsString(response));
         out.flush();
         out.close();
@@ -56,9 +57,9 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest req, HttpServletResponse resp, AuthenticationException failed) throws IOException, ServletException {
         resp.setContentType("application/json;charset=utf-8");
-
         PrintWriter out = resp.getWriter();
-        out.write("登录失败!");
+        ResultResponse failResp = ResultResponse.login(Constants.STATUS_FAIL, "登录失败，请检查用户名和密码！", null);
+        out.write(new ObjectMapper().writeValueAsString(failResp));
         out.flush();
         out.close();
     }

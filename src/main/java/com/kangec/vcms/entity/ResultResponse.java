@@ -24,7 +24,11 @@ public class ResultResponse {
         return new ResultResponse(Constants.STATUS_OK,Constants.MESSAGE_OK,data);
     }
 
-    public static ResultResponse fail(String exception) {
-        return new ResultResponse(Constants.STATUS_FAIL,Constants.MESSAGE_FAIL,exception);
+    public static ResultResponse fail(String data) {
+        return new ResultResponse(Constants.STATUS_FAIL,Constants.MESSAGE_FAIL,data);
+    }
+
+    public static ResultResponse login(Integer status ,String message, Object data) {
+        return new ResultResponse(status, message, data);
     }
 }
