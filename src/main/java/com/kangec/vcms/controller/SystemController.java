@@ -1,7 +1,6 @@
 package com.kangec.vcms.controller;
 
 import com.kangec.vcms.controller.vo.VoRole;
-import com.kangec.vcms.controller.vo.VoUser;
 import com.kangec.vcms.entity.ResultResponse;
 import com.kangec.vcms.service.SystemService;
 import com.kangec.vcms.utils.logging.annotation.Log;
@@ -36,21 +35,6 @@ public class SystemController {
             roles.add(new VoRole(String.valueOf(i),"ROLE_ADMIN_" + i, "管理员_" + i, "启用","添加", LocalDateTime.now()));
         }
         data.put("roles",roles);
-    }
-
-    /**
-     * 登录请求处理接口
-     * @param user User DTO，只包含用户名和密码。
-     * @return 结果
-     */
-    @PostMapping("/login")
-    public ResultResponse login(@RequestBody VoUser user) {
-        Map<String, String> data = new HashMap<>();
-        if ("admin".equals(user.getUsername())) {
-            data.put("token", "admin-token");
-            return ResultResponse.ok(data);
-        }
-        return ResultResponse.fail(null);
     }
 
     /**
@@ -113,7 +97,7 @@ public class SystemController {
         try {
             runtimeEvn = systemService.getSystemRuntimeEvn();
         } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+            return ResultResponse.fail(e.getMessage());
         }
         return ResultResponse.ok(runtimeEvn);
     }
