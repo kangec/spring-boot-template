@@ -28,7 +28,7 @@ public class SysUserMapperTest {
     }
 
     public SysUser insertUser() {
-        final SysUser sysUser = new SysUser(null, "test", "test",null,null,null,null,null);
+        final SysUser sysUser = new SysUser(null, "test", "test",null,null,null,null,null,null);
         sysUserMapper.insertUser(sysUser);
         Assertions.assertNotNull(sysUser);
         return sysUser;

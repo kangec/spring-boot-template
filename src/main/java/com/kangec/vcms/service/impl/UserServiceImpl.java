@@ -29,7 +29,11 @@ public class UserServiceImpl implements UserService {
             VoUser voUser = VoUser.builder()
                     .username(user.getUsername())
                     .password(user.getPassword())
-                    .userId(String.valueOf(user.getId()))
+                    .userId(user.getId())
+                    .createTime(user.getCreateTime())
+                    .nickName(user.getNickname())
+                    .phone(user.getPhone())
+                    .status(user.getStatus())
                     .build();
             voUserList.add(voUser);
         }
@@ -43,7 +47,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public VoUser getUserByUserId(String userId) {
-        return null;
+        if (userId == null || userId.isEmpty()) {
+            return null;
+        }
+        SysUser sysUser = sysUserMapper.queryUserById(userId);
+        return sysUser == null ? null : new VoUser(sysUser);
     }
 
     @Override

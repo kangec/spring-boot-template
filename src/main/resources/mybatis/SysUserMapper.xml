@@ -10,7 +10,8 @@
     </select>
 
     <select id="queryUserList" resultType="SysUser">
-        select * from sys_user;
+        select *
+        from sys_user;
     </select>
 
     <select id="queryUserById" parameterType="string" resultType="SysUser">
@@ -19,9 +20,9 @@
         where id = #{id}
     </select>
 
-    <insert id="insertUser" parameterType="SysUser"  useGeneratedKeys="true" keyProperty="id">
-        insert into sys_user(username, password)
-        VALUES (#{name}, #{password})
+    <insert id="insertUser" parameterType="SysUser" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_user(username, password, nickname, email, phone, status, create_time)
+        VALUES (#{ username }, #{ password }, #{ nickname }, #{ email }, #{ phone }, #{ status }, #{ create_time })
     </insert>
 
     <update id="updateUser" parameterType="SysUser">
@@ -33,11 +34,28 @@
             <if test="password != null">
                 password = #{password}
             </if>
+            <if test="nickname != null">
+                nickname = #{nickname}
+            </if>
+            <if test="password != null">
+                email = #{email}
+            </if>
+            <if test="password != null">
+                phone = #{phone}
+            </if>
+            <if test="password != null">
+                status = #{status}
+            </if>
+            <if test="password != null">
+                create_time = #{create_time}
+            </if>
         </set>
         where id = #{id};
     </update>
 
     <delete id="deleteUser" parameterType="string">
-        delete from sys_user where id = #{userId}
+        delete
+        from sys_user
+        where id = #{userId}
     </delete>
 </mapper>

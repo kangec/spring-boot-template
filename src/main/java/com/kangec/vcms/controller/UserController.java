@@ -3,20 +3,19 @@ package com.kangec.vcms.controller;
 import com.kangec.vcms.controller.vo.VoUser;
 import com.kangec.vcms.entity.ResultResponse;
 import com.kangec.vcms.service.UserService;
-import com.kangec.vcms.utils.jwt.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author kangec
+ */
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -24,21 +23,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    static Map<String, Object> data = new HashMap<>();
-
-    static {
-        List<VoUser> users = new ArrayList<>();
-        for (int i = 0; i < 19; i++) {
-            users.add(new VoUser(i + "","username", "password", "老能", "人力资源", "14444444", "ADMIN", "启用", LocalDateTime.now()));
-        }
-        data.put("users", users);
-    }
-
-    @GetMapping("/user/get")
-    public Object get(Authentication authentication, HttpServletRequest request) {
-        final String header = request.getHeader("Authorization");
-
-        return JwtUtil.validateToken(header);
+    @GetMapping("/user/{userId}")
+    public Object getUser(@PathVariable(value = "userId" ) String userId) {
+        VoUser voUser = userService.getUserByUserId(userId);
+        return ResultResponse.ok(voUser);
     }
 
     @GetMapping("/user/info")

@@ -1,5 +1,6 @@
 package com.kangec.vcms.controller.vo;
 
+import com.kangec.vcms.entity.SysUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,8 +19,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VoUser implements Serializable {
-    private String userId;
+    private Integer userId;
     private String username;
+    private String avatar;
     private String password;
     private String nickName;
     private String department;
@@ -27,4 +29,17 @@ public class VoUser implements Serializable {
     private String role;
     private String status;
     private LocalDateTime createTime;
+
+    public VoUser(SysUser user) {
+        this.createTime = user.getCreateTime();
+        this.nickName = user.getNickname();
+        this.userId = user.getId();
+        this.password = user.getPassword();
+        this.phone = user.getPhone();
+        this.username = user.getUsername();
+        this.status = user.getStatus();
+        this.avatar = user.getAvatar();
+        this.department = "默认";
+        this.role = "默认";
+    }
 }
