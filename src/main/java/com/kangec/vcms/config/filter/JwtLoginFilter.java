@@ -28,6 +28,8 @@ import java.util.Map;
  * @author Kangec
  */
 public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
+
+
     public JwtLoginFilter(String defaultFilterProcessesUrl, AuthenticationManager authenticationManager) {
         super(new AntPathRequestMatcher(defaultFilterProcessesUrl));
         setAuthenticationManager(authenticationManager);
